@@ -61,10 +61,10 @@ def main():
             sys.exit(0)
 
         else:
-            memstats_re = re.compile(r"\|\s(\w+)\s+(\d+)\s+\|")
-            telnet = telnetlib.Telnet(host, port)
-            telnet.write(">for k,v in pairs(pposix.meminfo()) do print(k,v, '|') end\n")
-            mem_response = telnet.read_until("Result:", 5)
+            memstats_re = re.compile(r"\|\W+(\w+)\:\s\b(\d+\.\d+)\MB")
+	    telnet = telnetlib.Telnet(host, port)
+            telnet.write("server:memory()\n")
+	    mem_response = telnet.read_until("Result:", 5)
             telnet.write(">collectgarbage('count')*1024\n")
             telnet.write("quit\n")
             lua_response = telnet.read_all()
@@ -75,7 +75,7 @@ def main():
 
             lua_mem = re.compile("Result: (\d+)").findall(lua_response)[0]
 
-            print "memory_total.value", mem_map["allocated"]
+            print "memory_total.value", mem_map["Process"]
             print "memory_used.value", mem_map["used"]
             print "memory_lua.value", lua_mem
 
