@@ -25,7 +25,7 @@ It is very simple to install the plugin.
 ::
 
     cd /usr/share/munin/plugins (or your munin plugins directory)
-    wget https://github.com/jarus/munin-prosody/raw/master/prosody_
+    wget https://github.com/jonnytischbein/munin-prosody/raw/master/prosody_
     chmod 755 prosody_
 
     ln -s /usr/share/munin/plugins/prosody_ /etc/munin/plugins/prosody_c2s
@@ -41,6 +41,8 @@ After the installation you need to restart your munin-node:
 ::
 
     /etc/init.d/munin-node restart
+
+Attention! You need to active the module admin_telnet in your prosody configuration and set the port 5582.
 
 
 Configuration
@@ -62,3 +64,8 @@ If you want to get the number of registered users, add the following lines to **
     [prosody_users]
     user prosody
     group prosody
+
+Update
+------------
+
+Nice the ouput in prosody version 0.10.2-1 seems to be changed the mem output is now fixed!
